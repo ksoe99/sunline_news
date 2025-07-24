@@ -1,43 +1,37 @@
 'use client';
 
-import React, { useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
-  const [error, setError] = useState('')
+  const [message, setMessage] = useState('');
 
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOtp({ email })
+    const { error } = await supabase.auth.signInWithOtp({
+      email: 'newscasteruk@gmail.com',
+      options: {
+        shouldCreateUser: false,
+      },
+    });
+
     if (error) {
-      setError(error.message)
+      console.error('Error sending magic link:', error.message);
+      setMessage('Failed to send magic link.');
     } else {
-      setSent(true)
-      setError('')
+      setMessage('Magic link sent! Check your email.');
     }
-  }
+  };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-xl shadow">
-      <h1 className="text-2xl font-bold mb-4">Login with Magic Link</h1>
-      {sent ? (
-        <p className="text-green-600">✅ Check your email for the magic link.</p>
-      ) : (
-        <>
-          <Input
-            type="email"
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mb-4"
-          />
-          <Button onClick={handleLogin}>Send Magic Link</Button>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
-        </>
-      )}
+    <div className="p-4 text-center">
+      <h1 className="text-2xl mb-4">Admin Login</h1>
+      <button
+        onClick={handleLogin}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Send Magic Link
+      </button>
+      {message && <p className="mt-4 text-sm">{message}</p>}
     </div>
-  )
+  );
 }
