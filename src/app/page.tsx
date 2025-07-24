@@ -1,16 +1,36 @@
 'use client';
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabaseClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function HomePage() {
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (data?.session?.user?.email === "newscasteruk@gmail.com") {
+        setUserEmail(data.session.user.email);
+      }
+    };
+
+    getSession();
+  }, [supabase]);
+
   return (
     <div className="p-4 max-w-7xl mx-auto">
       <header className="bg-red-600 text-white p-4 rounded-2xl shadow-md">
         <h1 className="text-4xl font-extrabold tracking-tight">THE SUNLINE</h1>
         <p className="text-sm italic">Fearless News. Sharp Stories. Daily Truths.</p>
+        {userEmail && (
+          <p className="mt-2 text-sm text-yellow-200">
+            Logged in as <strong>{userEmail}</strong>
+          </p>
+        )}
       </header>
 
       <div className="my-4">

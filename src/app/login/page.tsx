@@ -1,37 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function LoginPage() {
-  const [message, setMessage] = useState('');
+export default function AdminPage() {
+  const router = useRouter();
+  const [user, setUser] = useState<string | null>(null);
 
-  const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOtp({
-      email: 'newscasteruk@gmail.com',
-      options: {
-        shouldCreateUser: false,
-      },
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session?.user) return router.replace('/login');
+      if (session.user.email !== 'newscasteruk@gmail.com') {
+        return router.replace('/login');
+      }
+      setUser(session.user.email);
     });
+  }, [router]);
 
-    if (error) {
-      console.error('Error sending magic link:', error.message);
-      setMessage('Failed to send magic link.');
-    } else {
-      setMessage('Magic link sent! Check your email.');
-    }
-  };
+  if (!user) return <div className="p-4 text-center">Loading admin…</div>;
 
   return (
-    <div className="p-4 text-center">
-      <h1 className="text-2xl mb-4">Admin Login</h1>
-      <button
-        onClick={handleLogin}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Send Magic Link
-      </button>
-      {message && <p className="mt-4 text-sm">{message}</p>}
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Welcome, {user}</h1>
+      <div className="mt-6 space-x-4">
+        <button onClick={() => router.push('/admin/tech')} className="btn">Tech</button>
+        <button onClick={() => router.push('/admin/sports')} className="btn">Sports</button>
+        <button onClick={() => router.push('/admin/weather')} className="btn">Weather</button>
+        <button onClick={() => router.push('/admin/business')} className="btn">Business</button>
+        <button onClick={() => router.push('/admin/featured')} className="btn">Featured</button>
+      </div>
     </div>
   );
 }

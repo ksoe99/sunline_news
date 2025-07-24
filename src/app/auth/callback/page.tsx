@@ -1,41 +1,25 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
-function AuthHandler() {
+export default function CallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const exchangeSession = async () => {
-      const code = searchParams.get('code') || '';
-
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.exchangeCodeForSession(code);
-
-      if (error || session?.user.email !== 'newscasteruk@gmail.com') {
-        await supabase.auth.signOut();
-        router.push('/login');
+    const exchange = async () => {
+      const error = await supabase.auth.exchangeCodeForSession(); // no args needed
+      if (error) {
+        console.error('Auth error:', error.message);
         return;
       }
-
-      router.push('/');
+      // Redirect to admin
+      router.replace('/admin');
     };
+    exchange();
+  }, [router]);
 
-    exchangeSession();
-  }, [router, searchParams]);
-
-  return <div className="p-4 text-center">Authenticating...</div>;
-}
-
-export default function AuthCallback() {
-  return (
-    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
-      <AuthHandler />
-    </Suspense>
-  );
+  return <div className="p-4 text-center">Authenticating…</div>;
 }
