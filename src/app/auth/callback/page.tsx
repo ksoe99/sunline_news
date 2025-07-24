@@ -9,7 +9,7 @@ export default function CallbackPage() {
 
   useEffect(() => {
     const exchange = async () => {
-      const { error } = await supabase.auth.exchangeCodeForSession({ url: window.location.href });
+      const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
       if (error) {
         console.error('Auth error:', error.message);
         router.push('/'); // Or show an error page
