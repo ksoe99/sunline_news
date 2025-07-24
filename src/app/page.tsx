@@ -22,7 +22,8 @@ export default function HomePage() {
           <CardContent className="p-4">
             <h2 className="text-2xl font-bold text-red-700">EXCLUSIVE: Tech Mogul Turns Philanthropist</h2>
             <p className="mt-2 text-base text-gray-800">
-          In a surprising turn, the once-reclusive CEO has donated over $10 million to rebuild education systems in underfunded communities. “It&apos;s about giving back,” he said.
+          In a surprising turn, the once-reclusive CEO has donated over $10 million to rebuild education systems in underfunded communities. {`“It's about giving back,” he said.`}
+
             </p>
             <Button className="mt-4 bg-red-600 hover:bg-red-700">Read More</Button>
           </CardContent>
@@ -38,7 +39,8 @@ export default function HomePage() {
         <Card>
           <CardContent className="p-4">
             <h3 className="text-xl font-semibold">OPINION: The Media's Role in Healing Society</h3>
-            <p className="text-sm mt-2">We need more truth and less division in the headlines. It&apos;s what journalism should be.</p>
+            <p className="text-sm mt-2">We need more truth and less division in the headlines. {`It's what journalism should be.`}
+</p>
           </CardContent>
         </Card>
 
