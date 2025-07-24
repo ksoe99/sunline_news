@@ -1,6 +1,34 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabaseClient';
+
+export default function AuthCallbackPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleCallback = async () => {
+      const url = window.location.href;
+      const { error } = await supabase.auth.exchangeCodeForSession(url);
+      if (error) {
+        console.error('Login callback error:', error.message);
+      }
+      router.push('/');
+    };
+
+    handleCallback();
+  }, [router]);
+
+  return (
+    <div className="p-4 text-center">
+      <h1 className="text-xl font-bold">Processing login...</h1>
+    </div>
+  );
+}
+'use client';
+
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
