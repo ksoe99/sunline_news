@@ -4,27 +4,25 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function AuthCallback() {
+export default function AuthCallbackPage() {
   const router = useRouter();
 
   useEffect(() => {
     const handleCallback = async () => {
-      const { error } = await supabase.auth.getSessionFromUrl();
+      const { error } = await supabase.auth.exchangeCodeForSession();
       if (error) {
         console.error('Error exchanging code for session:', error);
-        return;
+      } else {
+        router.push('/');
       }
-
-      // Optional: redirect to dashboard or home
-      router.replace('/');
     };
 
     handleCallback();
   }, [router]);
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <p className="text-xl font-medium">Authenticating...</p>
+    <div className="p-4 text-center">
+      <h1 className="text-xl font-bold">Completing login...</h1>
     </div>
   );
 }
