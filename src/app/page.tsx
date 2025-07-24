@@ -8,18 +8,14 @@ import { Input } from "@/components/ui/input";
 
 export default function HomePage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (data?.session?.user?.email === "newscasteruk@gmail.com") {
-        setUserEmail(data.session.user.email);
-      }
+      const { data: { session } } = await supabase.auth.getSession();
+      setUserEmail(session?.user.email ?? null);
     };
-
     getSession();
-  }, [supabase]);
+  }, []);
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
@@ -27,9 +23,7 @@ export default function HomePage() {
         <h1 className="text-4xl font-extrabold tracking-tight">THE SUNLINE</h1>
         <p className="text-sm italic">Fearless News. Sharp Stories. Daily Truths.</p>
         {userEmail && (
-          <p className="mt-2 text-sm text-yellow-200">
-            Logged in as <strong>{userEmail}</strong>
-          </p>
+          <p className="text-white mt-2">Logged in as: {userEmail}</p>
         )}
       </header>
 
