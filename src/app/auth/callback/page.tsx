@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function Callback() {
+function CallbackInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -20,9 +20,16 @@ export default function Callback() {
         }
       }
     };
-
     exchangeSession();
   }, [router, searchParams]);
 
   return <div className="p-4 text-center">Authenticating...</div>;
+}
+
+export default function Callback() {
+  return (
+    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+      <CallbackInner />
+    </Suspense>
+  );
 }
