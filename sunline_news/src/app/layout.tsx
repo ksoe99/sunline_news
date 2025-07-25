@@ -1,18 +1,9 @@
 import './globals.css';
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '../../lib/branding';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Sunline Network',
-  description: 'Multi-brand news network',
-};
+import { getBrandFromHost } from '@/lib/branding';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const headersList = await headers();
+  const headersList = headers();
   const host = headersList.get('host');
   const brand = getBrandFromHost(host || '');
 
@@ -26,9 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <body className={brandThemes[brand] || ''}>
-        {children}
-      </body>
+      <body className={brandThemes[brand] || ''}>{children}</body>
     </html>
   );
 }
