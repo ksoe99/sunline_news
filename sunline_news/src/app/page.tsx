@@ -1,33 +1,17 @@
-'use client'
+import { headers } from 'next/headers';
+import { getBrandFromHost } from '@/lib/branding';
 
-import React, { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-
-export default function AdminPage() {
-  const [user, setUser] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session?.user?.email === 'newscasteruk@gmail.com') {
-        setUser(session.user.email)
-      } else {
-        // Not authorized—redirect to login
-        window.location.href = '/login'
-      }
-    }
-    fetchSession()
-  }, [])
-
-  if (!user) {
-    return <div className="p‑4 text‑center font‑medium">Loading admin...</div>
-  }
+export default function Home() {
+  const host = headers().get('host');
+  const brand = getBrandFromHost(host || '');
 
   return (
-    <div className="p‑4 max‑w‑3xl mx‑auto">
-      <h1 className="text‑2xl font‑bold mb‑4">Admin Dashboard</h1>
-      <p>Welcome, {user}. You can manage all five news sites from here.</p>
-      {/* Add your page update controls here */}
-    </div>
-  )
+    <main className="p-4">
+      {brand === 'skyline' && <h1>Tech & Future — Skyline News</h1>}
+      {brand === 'atlas' && <h1>Global Affairs — Atlas Live</h1>}
+      {brand === 'echo' && <h1>Policy & Society — Echo Live</h1>}
+      {brand === 'sovereign' && <h1>Investigations — Sovereign Wire</h1>}
+      {brand === 'sunline' && <h1>Top Headlines — Sunline News</h1>}
+    </main>
+  );
 }
