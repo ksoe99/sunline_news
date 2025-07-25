@@ -6,8 +6,8 @@ import { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const headersList = headers();
-  const host = headersList.get('host');
+ const headersList = await headers();
+const host = headersList.get('host');
   const brand = getBrandFromHost(host || '');
 
   const brandThemes: Record<string, string> = {
