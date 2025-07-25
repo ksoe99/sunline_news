@@ -1,35 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function AdminPage() {
-  const router = useRouter();
-  const [user, setUser] = useState<string | null>(null);
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session?.user) return router.replace('/login');
-      if (session.user.email !== 'newscasteruk@gmail.com') {
-        return router.replace('/login');
-      }
-      setUser(session.user.email);
-    });
-  }, [router]);
-
-  if (!user) return <div className="p-4 text-center">Loading admin…</div>;
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithOtp({ email });
+    if (!error) setSent(true);
+  }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Welcome, {user}</h1>
-      <div className="mt-6 space-x-4">
-        <button onClick={() => router.push('/admin/tech')} className="btn">Tech</button>
-        <button onClick={() => router.push('/admin/sports')} className="btn">Sports</button>
-        <button onClick={() => router.push('/admin/weather')} className="btn">Weather</button>
-        <button onClick={() => router.push('/admin/business')} className="btn">Business</button>
-        <button onClick={() => router.push('/admin/featured')} className="btn">Featured</button>
-      </div>
-    </div>
+    <main className="max-w-md mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">Admin login</h1>
+      {sent ? (
+        <p>Check your email for the magic link.</p>
+      ) : (
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="email"
+            className="w-full border p-2 rounded"
+            placeholder="Email address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <button className="bg-black text-white px-4 py-2 rounded" type="submit">
+            Send magic link
+          </button>
+        </form>
+      )}
+    </main>
   );
 }
