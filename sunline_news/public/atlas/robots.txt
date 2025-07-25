@@ -1,0 +1,3 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://atlas.sunline.press/sitemap.xml
