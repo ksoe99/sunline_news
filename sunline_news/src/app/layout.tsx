@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import './globals.css'; // ✅ Correct for location: src/app/globals.css
 import { headers } from 'next/headers';
 import { getBrandFromHost } from '../../lib/branding';
 
