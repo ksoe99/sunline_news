@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '../lib/branding';
+import { getBrandFromHost } from '@/lib/branding';
 
 export default async function Home() {
   const headersList = await headers(); // ✅ Await this
