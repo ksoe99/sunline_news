@@ -1,4 +1,4 @@
-﻿const path = require('path'); // <- Required for path.resolve
+﻿const path = require('path');  // important!
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
