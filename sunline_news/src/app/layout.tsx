@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const host = headers().get('host');
+  const headersList = await headers();
+const host = headersList.get('host');
   const brand = getBrandFromHost(host || '');
 
   const brandThemes: Record<string, string> = {
