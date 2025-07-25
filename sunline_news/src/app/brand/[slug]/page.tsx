@@ -1,4 +1,3 @@
-// src/app/brand/[slug]/page.tsx
 import { groq } from 'next-sanity';
 import { createClient } from 'next-sanity';
 import Link from 'next/link';
@@ -6,7 +5,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 const client = createClient({
-  projectId: 'r78ha36k', // <-- REPLACE THIS
+  projectId: 'your_project_id_here',
   dataset: 'production',
   useCdn: true,
   apiVersion: '2023-07-25',
