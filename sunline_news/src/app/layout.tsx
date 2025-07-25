@@ -11,28 +11,23 @@ export const metadata: Metadata = {
   description: 'Multi-brand news network',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
-const host = headersList.get('host');
+  const host = headersList.get('host');
   const brand = getBrandFromHost(host || '');
 
   const brandThemes: Record<string, string> = {
-    sunline: 'bg-white text-black',
-    skyline: 'bg-black text-white',
-    atlas: 'bg-slate-800 text-white',
-    echo: 'bg-white text-green-800',
-    sovereign: 'bg-zinc-900 text-red-500',
+    sunline: 'bg-yellow-100 text-black',
+    skyline: 'bg-blue-900 text-white',
+    atlas: 'bg-indigo-800 text-white',
+    echo: 'bg-rose-950 text-white',
+    sovereign: 'bg-gray-950 text-white',
   };
-
-  const theme = brandThemes[brand] || brandThemes['sunline'];
 
   return (
     <html lang="en">
-      <body className={`${inter.className} ${theme}`}>
-        <div className="min-h-screen px-6 py-4">
-          <header className="mb-6 text-3xl font-bold capitalize">{brand} news</header>
-          {children}
-        </div>
+      <body className={brandThemes[brand] || ''}>
+        {children}
       </body>
     </html>
   );
