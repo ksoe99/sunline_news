@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '@/lib/branding';
+import { getBrandFromHost } from '../../lib/branding';
 
 export default function Home() {
   const host = headers().get('host');

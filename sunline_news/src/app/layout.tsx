@@ -1,6 +1,6 @@
 import './globals.css';
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '@/lib/branding';
+import { getBrandFromHost } from '../../lib/branding';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
