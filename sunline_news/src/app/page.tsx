@@ -1,8 +1,9 @@
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '../../lib/branding';
+import { getBrandFromHost } from '../lib/branding';
 
-export default function Home() {
-  const host = headers().get('host');
+export default async function Home() {
+  const headersList = await headers(); // ✅ Await this
+  const host = headersList.get('host');
   const brand = getBrandFromHost(host || '');
 
   return (
