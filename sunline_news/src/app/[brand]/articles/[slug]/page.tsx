@@ -1,17 +1,12 @@
 // src/app/[brand]/articles/[slug]/page.tsx
 import { groq } from 'next-sanity';
-import { createClient } from 'next-sanity';
+import { client } from '@/lib/sanity.client';
+import { previewClient } from '@/lib/sanity.preview';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
+import { draftMode } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
-
-const client = createClient({
-  projectId: 'r78ha36k',
-  dataset: 'production',
-  useCdn: true,
-  apiVersion: '2023-07-25',
-});
 
 const query = groq`
   *[_type == "article" && slug.current == $slug && brand->slug.current == $brand][0] {
@@ -24,7 +19,10 @@ const query = groq`
 
 export default async function ArticlePage({ params }: { params: { brand: string; slug: string } }) {
   const { brand, slug } = params;
-  const article = await client.fetch(query, { slug, brand });
+  const isDraft = draftMode().isEnabled;
+  const dataClient = isDraft ? previewClient : client;
+
+  const article = await dataClient.fetch(query, { slug, brand });
 
   if (!article) return notFound();
 
