@@ -1,29 +1,38 @@
-'use client';
+import './globals.css';
+import { headers } from 'next/headers';
+import { getBrandFromHost } from '@/lib/branding';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import { useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
-import { useRouter } from 'next/navigation';
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Sunline Network',
+  description: 'Multi-brand news network',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const host = headers().get('host');
+  const brand = getBrandFromHost(host || '');
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        router.push('/');
-      }
-    });
+  const brandThemes: Record<string, string> = {
+    sunline: 'bg-white text-black',
+    skyline: 'bg-black text-white',
+    atlas: 'bg-slate-800 text-white',
+    echo: 'bg-white text-green-800',
+    sovereign: 'bg-zinc-900 text-red-500',
+  };
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        router.push('/');
-      }
-    });
+  const theme = brandThemes[brand] || brandThemes['sunline'];
 
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return <>{children}</>;
+  return (
+    <html lang="en">
+      <body className={`${inter.className} ${theme}`}>
+        <div className="min-h-screen px-6 py-4">
+          <header className="mb-6 text-3xl font-bold capitalize">{brand} news</header>
+          {children}
+        </div>
+      </body>
+    </html>
+  );
 }
