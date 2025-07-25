@@ -1,6 +1,7 @@
-﻿/** @type {import('next').NextConfig} */
+﻿const path = require('path'); // <- Required for path.resolve
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Other config...
   webpack(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
