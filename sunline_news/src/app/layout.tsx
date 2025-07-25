@@ -1,6 +1,6 @@
 import './globals.css';
 import { headers } from 'next/headers';
-import { getBrandFromHost } from '../lib/branding';
+import { getBrandFromHost } from '../../lib/branding';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headersList = headers();
