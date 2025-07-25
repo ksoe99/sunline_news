@@ -1,7 +1,6 @@
-// src/app/[brand]/articles/[slug]/page.tsx
 import { groq } from 'next-sanity';
-import { client } from '@/lib/sanity.client';
-import { previewClient } from '@/lib/sanity.preview';
+import { client } from '../../../../../lib/sanity.client';
+import { previewClient } from '../../../../../lib/sanity.preview';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
