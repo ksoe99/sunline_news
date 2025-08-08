@@ -18,11 +18,11 @@ const query = groq`
 
 export default async function ArticlePage({ params }: { params: { brand: string; slug: string } }) {
   const { brand, slug } = params;
-  const isDraft = draftMode().isEnabled;
+  const { isEnabled: isDraft } = await draftMode(); // ✅ Await here
+
   const dataClient = isDraft ? previewClient : client;
 
   const article = await dataClient.fetch(query, { slug, brand });
-
   if (!article) return notFound();
 
   return (
