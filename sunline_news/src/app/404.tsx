@@ -11,8 +11,9 @@ const brandThemes: Record<string, { name: string; color: string; bg: string; tex
   sovereign: { name: 'Sovereign Wire', color: '#f4f4f5', bg: 'bg-zinc-100', text: 'text-zinc-900' },
 };
 
-export default function NotFound() {
-  const host = headers().get('host') || '';
+export default async function NotFound() { // ✅ async here
+  const hdrs = await headers(); // ✅ Await the promise
+  const host = hdrs.get('host') || '';
   const brand = getBrandFromHost(host);
   const theme = brandThemes[brand] || brandThemes.sunline;
 
@@ -32,3 +33,4 @@ export default function NotFound() {
     </html>
   );
 }
+
