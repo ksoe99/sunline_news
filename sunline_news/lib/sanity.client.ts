@@ -1,7 +1,7 @@
 // lib/sanity.client.ts
 import { createClient } from 'next-sanity';
 
-export const projectId = 'your_project_id_here';
+export const projectId = 'r78ha36k';
 export const dataset = 'production';
 export const apiVersion = '2023-07-25';
 
