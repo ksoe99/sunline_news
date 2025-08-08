@@ -1,7 +1,7 @@
 import './globals.css'
 import { headers } from 'next/headers'
-import { getBrandFromHost } from '@/src/lib/branding'
-import { themes } from '@/src/lib/themes'
+import { getBrandFromHost } from '@/lib/branding'
+import { themes } from '@/lib/themes'
 
 export async function generateMetadata() {
   const host = headers().get('host') || ''
