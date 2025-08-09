@@ -1,28 +1,17 @@
-import './globals.css'
-import { headers } from 'next/headers'
-import { getBrandFromHost } from '@/lib/branding'
-import { themes } from '@/lib/themes'
+import './globals.css';
+import { headers } from 'next/headers';
+import { getBrandFromHost } from '@/lib/branding';
+import themes from '@/lib/themes';
 
 export async function generateMetadata() {
-  const host = headers().get('host') || ''
-  const brand = getBrandFromHost(host) ?? 'sunline'
-  const t = themes[brand]
-  const domain = `https://${host}`
+  const host = (await headers()).get('host') || '';
+  const brand = getBrandFromHost(host);
+  const theme = themes[brand] || themes.sunline;
+
   return {
-    title: { default: t.meta.title, template: `%s • ${t.meta.title}` },
-    description: t.meta.description,
-    metadataBase: new URL(domain),
-    themeColor: t.colors.primary,
-    openGraph: {
-      title: t.meta.title,
-      description: t.meta.description,
-      url: domain,
-      siteName: t.meta.title,
-      images: [`/${brand}/og.jpg`],
-      type: 'website',
-    },
-    icons: { icon: `/${brand}/favicon.ico` },
-  }
+    title: theme.name,
+    themeColor: theme.color,
+  };
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -30,5 +19,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>{children}</body>
     </html>
-  )
+  );
 }
