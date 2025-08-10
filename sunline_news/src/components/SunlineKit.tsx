@@ -250,10 +250,10 @@ const mock: Article[] = Array.from({ length: 3 }).map((_, i) => ({
   image: `https://picsum.photos/seed/sunline-${i}/960/540`,
 }));
 
-export default function SunlineUIKitDemo({ articles = mock }: { articles?: Article[] }) {
+export default function SunlineKit({ brand = "sunline", articles = mock }: { brand?: BrandKey; articles?: Article[] }) {
   const [view, setView] = useState<"home" | "article">("home");
   return (
-    <ThemeProvider brand="sunline">
+    <ThemeProvider brand={brand}>
       <Header />
       {view === "home" ? <HomePage articles={articles} /> : <ArticlePage article={articles[0]} />}
       <Footer />
