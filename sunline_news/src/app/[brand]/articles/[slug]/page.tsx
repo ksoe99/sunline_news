@@ -5,16 +5,24 @@ import query from '@/lib/queries/article';
 export default async function ArticlePage({ params }: { params: { brand: string; slug: string } }) {
   const { brand, slug } = params;
 
+  // Only define isDraft once
   const { isEnabled: isDraft } = await draftMode();
-  const isDraft = isEnabled;
+
+  // Choose the correct Sanity client
   const dataClient = isDraft ? previewClient : client;
 
-  const article = await dataClient.fetch(query, { slug, brand });
+  // Fetch the article
+  const article = await dataClient.fetch(query, { brand, slug });
+
+  if (!article) {
+    return <div>Article not found</div>;
+  }
 
   return (
-    <main>
+    <article>
       <h1>{article.title}</h1>
-      <p>{article.body}</p>
-    </main>
+      <p>{article.publishedAt}</p>
+      <div dangerouslySetInnerHTML={{ __html: article.body }} />
+    </article>
   );
 }
