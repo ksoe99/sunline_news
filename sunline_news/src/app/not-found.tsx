@@ -1,15 +1,12 @@
-import { headers } from 'next/headers'
-import { getBrandFromHost } from '@/src/lib/branding'
+import { headers } from 'next/headers';
+import { getBrandFromHost } from '@/lib/branding';
 
 export default function NotFound() {
-  const brand = getBrandFromHost(headers().get('host') || '') ?? 'sunline'
+  const brand = getBrandFromHost(headers().get('host') || '') ?? 'sunline';
   return (
-    <main className="mx-auto max-w-xl p-8">
-      <h1 className="text-3xl font-bold">Page not found</h1>
-      <p className="mt-2 text-gray-600">
-        We couldn’t find that page on {brand === 'sunline' ? 'Sunline News' : brand}.
-      </p>
-      <a href="/" className="mt-4 inline-block text-red-700 underline">Go home</a>
-    </main>
-  )
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+      <p>Sorry, we couldn’t find that page.</p>
+    </div>
+  );
 }
