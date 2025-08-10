@@ -5,7 +5,7 @@ import query from '@/lib/queries/article';
 export default async function ArticlePage({ params }: { params: { brand: string; slug: string } }) {
   const { brand, slug } = params;
 
-  const { isEnabled } = await draftMode();
+  const { isEnabled: isDraft } = await draftMode();
   const isDraft = isEnabled;
   const dataClient = isDraft ? previewClient : client;
 

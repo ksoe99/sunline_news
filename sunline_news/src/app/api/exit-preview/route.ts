@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   }
 
   const draft = await draftMode();
-  draft.enable();
+draft.enable();
 
   const redirectUrl = `/${brand}/articles/${slug}`;
   return NextResponse.redirect(new URL(redirectUrl, req.url));
