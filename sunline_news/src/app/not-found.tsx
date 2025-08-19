@@ -1,14 +1,16 @@
-import { headers } from 'next/headers';
-import { getBrandFromHost } from '@/lib/branding';
-
-export default async function NotFound() {
-  const hdrs = await headers();
-  const brand = getBrandFromHost(hdrs.get('host') || '') ?? 'sunline';
-
+﻿// src/app/not-found.tsx
+export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
-      <p>Sorry, we couldn’t find that page.</p>
-    </div>
-  );
+    <main className="mx-auto max-w-3xl px-4 py-16 text-center">
+      <h1 className="text-4xl font-black" style={{ fontFamily: 'var(--brand-heading)', color: 'var(--brand-primary)' }}>
+        404
+      </h1>
+      <p className="mt-2 text-gray-600" style={{ fontFamily: 'var(--brand-body)' }}>
+        We couldn’t find that page.
+      </p>
+      <a href="/" className="mt-6 inline-block text-[var(--brand-primary)] hover:underline">
+        Go home
+      </a>
+    </main>
+  )
 }

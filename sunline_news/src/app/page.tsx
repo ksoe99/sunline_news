@@ -1,9 +1,3 @@
-import { headers } from 'next/headers'
-import { getBrandFromHost } from '@/lib/branding'
-import SunlineKit from '@/components/SunlineKit'
-
-export default async function Page() {
-  const host = (await headers()).get('host') || ''
-  const brand = getBrandFromHost(host) ?? 'sunline'
-  return <SunlineKit brand={brand} />
+﻿export default function TestPage() {
+  return <h1 style={{ padding: '2rem', fontSize: '2rem' }}>✅ Root page is loading!</h1>;
 }
