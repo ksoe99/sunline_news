@@ -9,14 +9,14 @@ export const themes = {
     key: 'sunline',
     name: 'Sunline News',
     colors: { primary: '#B01919', accent: '#F6C026', text: '#111827', subtle: '#6B7280', bg: '#FFFFFF', bgMuted: '#FFF7ED' },
-    fonts: { heading: 'Merriweather, ui-serif, Georgia, serif', body: 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"' },
+    fonts: { heading: 'Merriweather, ui-serif, Georgia, serif', body: 'Inter, ui-sans-serif, system-ui' },
     logo: '/assets/logos/sunline-news.svg'
   },
   atlas: {
     key: 'atlas',
     name: 'Atlas Live News',
     colors: { primary: '#1E5AA8', accent: '#A7C8F2', text: '#0F172A', subtle: '#64748B', bg: '#FFFFFF', bgMuted: '#EFF6FF' },
-    fonts: { heading: 'Inter, ui-sans-serif, system-ui', body: 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial' },
+    fonts: { heading: 'Inter, ui-sans-serif, system-ui', body: 'Inter, ui-sans-serif, system-ui' },
     logo: '/assets/logos/atlas-live-news.svg'
   },
   sovereign: {
@@ -62,14 +62,14 @@ export function ThemeProvider({ brand = DEFAULT_BRAND, children }: { brand?: Bra
       <div
         style={
           {
-            ['--brand-primary' as any]: tokens.colors.primary,
-            ['--brand-accent' as any]: tokens.colors.accent,
-            ['--brand-text' as any]: tokens.colors.text,
-            ['--brand-subtle' as any]: tokens.colors.subtle,
-            ['--brand-bg' as any]: tokens.colors.bg,
-            ['--brand-bgMuted' as any]: tokens.colors.bgMuted,
-            ['--brand-heading' as any]: tokens.fonts.heading,
-            ['--brand-body' as any]: tokens.fonts.body
+            ['--brand-primary']: tokens.colors.primary,
+            ['--brand-accent']: tokens.colors.accent,
+            ['--brand-text']: tokens.colors.text,
+            ['--brand-subtle']: tokens.colors.subtle,
+            ['--brand-bg']: tokens.colors.bg,
+            ['--brand-bgMuted']: tokens.colors.bgMuted,
+            ['--brand-heading']: tokens.fonts.heading,
+            ['--brand-body']: tokens.fonts.body
           } as React.CSSProperties
         }
         className="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-text)]"
@@ -86,81 +86,7 @@ export function useTheme() {
   return ctx;
 }
 
-/* ---------- PRIMITIVES ---------- */
-function Button({
-  children,
-  className = '',
-  variant = 'primary',
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'subtle' | 'accent' }) {
-  const base =
-    'inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
-  const styles: Record<string, string> = {
-    primary: 'bg-[var(--brand-primary)] text-white hover:brightness-95 focus:ring-[var(--brand-primary)]',
-    subtle: 'bg-white text-[var(--brand-text)] border border-gray-200 hover:bg-gray-50 focus:ring-gray-300',
-    accent: 'bg-[var(--brand-accent)] text-[var(--brand-text)] hover:brightness-95 focus:ring-[var(--brand-accent)]'
-  };
-  return (
-    <button className={`${base} ${styles[variant]} ${className}`} {...props}>
-      {children}
-    </button>
-  );
-}
-
-function Badge({ children, tone = 'accent' }: { children: React.ReactNode; tone?: 'accent' | 'primary' | 'muted' }) {
-  const toneCls =
-    tone === 'primary'
-      ? 'bg-[var(--brand-primary)] text-white'
-      : tone === 'muted'
-      ? 'bg-gray-100 text-gray-700'
-      : 'bg-[var(--brand-accent)] text-[var(--brand-text)]';
-  return <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${toneCls}`}>{children}</span>;
-}
-
-function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-gray-100 bg-white shadow-sm ${className}`}>{children}</div>;
-}
-
-/* ---------- HEADER / NAV (present and typed) ---------- */
-function Header() {
-  const { tokens } = useTheme();
-  return (
-    <header className="sticky top-0 z-40 w-full border-b border-gray-100 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 lg:px-6">
-        <div className="flex items-center gap-4">
-          <img src={tokens.logo} alt={tokens.name} className="h-9 w-auto" />
-          <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
-            {[
-              { label: 'Top Stories', href: '#' },
-              { label: 'Politics', href: '#' },
-              { label: 'Business', href: '#' },
-              { label: 'Tech', href: '#' },
-              { label: 'World', href: '#' },
-              { label: 'Culture', href: '#' }
-            ].map((l) => (
-              <a key={l.label} href={l.href} className="hover:text-[var(--brand-primary)]">
-                {l.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="subtle" className="hidden sm:inline-flex">
-            <Search className="h-4 w-4" /> Search
-          </Button>
-          <Button variant="primary" className="hidden md:inline-flex">
-            Subscribe <ChevronRight className="h-4 w-4" />
-          </Button>
-          <Button variant="subtle" className="md:hidden" aria-label="Open menu">
-            <Menu className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-/* ---------- ARTICLE BITS ---------- */
+/* ---------- COMPONENT EXPORT ---------- */
 type Article = {
   id: string;
   title: string;
@@ -171,14 +97,96 @@ type Article = {
   image?: string;
 };
 
-function ArticleCard({ article, feature = false }: { article: Article; feature?: boolean }) {
+type Props = {
+  brand?: string;
+  articles?: Article[];
+  children?: React.ReactNode;
+};
+
+const mock: Article[] = Array.from({ length: 3 }).map((_, i) => ({
+  id: `${i + 1}`,
+  title: ['City Council Approves Affordable Housing Plan', 'Markets Rally as Inflation Cools', 'New Transit Line Cuts Commute Times'][i % 3],
+  summary: 'Concise dek that previews the article and sets reader expectations.',
+  category: ['Politics', 'Business', 'Local'][i % 3],
+  author: ['Ava Reed', 'Miles Chen', 'Nora Patel'][i % 3],
+  publishedAt: new Date(Date.now() - i * 36e5).toISOString(),
+  image: `https://picsum.photos/seed/sunline-${i}/960/540`
+}));
+
+function SunlineKit({ brand = 'sunline', articles = mock, children }: Props) {
+  const resolvedBrand = safeBrand(brand);
+  const [view] = useState<'home' | 'article'>('home');
+
   return (
-    <Card className={`${feature ? 'md:col-span-2' : ''} overflow-hidden`}>
+    <ThemeProvider brand={resolvedBrand}>
+      <header className="sticky top-0 z-40 w-full border-b border-gray-100 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 lg:px-6">
+          <div className="flex items-center gap-4">
+            <img src={themes[resolvedBrand].logo} alt={themes[resolvedBrand].name} className="h-9 w-auto" />
+            <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
+              {['Top Stories', 'Politics', 'Business', 'Tech', 'World', 'Culture'].map((label) => (
+                <a key={label} href="#" className="hover:text-[var(--brand-primary)]">
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="hidden sm:inline-flex bg-white text-[var(--brand-text)] border border-gray-200 hover:bg-gray-50 px-4 py-2 rounded-2xl text-sm font-semibold">
+              <Search className="h-4 w-4 mr-2" /> Search
+            </button>
+            <button className="hidden md:inline-flex bg-[var(--brand-primary)] text-white px-4 py-2 rounded-2xl text-sm font-semibold">
+              Subscribe <ChevronRight className="h-4 w-4 ml-2" />
+            </button>
+            <button className="md:hidden px-2 py-2" aria-label="Open menu">
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {view === 'home' ? (
+        <main className="mx-auto max-w-6xl px-4 py-6 lg:px-6 lg:py-10">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <ArticleCard article={articles[0]} feature />
+            <div className="grid grid-cols-1 gap-4">
+              <ArticleCard article={articles[1]} />
+              <ArticleCard article={articles[2]} />
+            </div>
+          </div>
+        </main>
+      ) : (
+        <main className="mx-auto max-w-3xl px-4 py-8 lg:px-0">
+          <h1 className="mb-3 font-serif text-4xl font-black leading-tight" style={{ fontFamily: 'var(--brand-heading)' }}>
+            {articles[0].title}
+          </h1>
+          <p className="mb-6 text-lg text-gray-700">{articles[0].summary}</p>
+        </main>
+      )}
+
+      {children}
+
+      <footer className="mt-10 border-t border-gray-100 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-gray-600 lg:px-6">
+          <p className="mt-6 text-xs text-gray-400">
+            © {new Date().getFullYear()} {themes[resolvedBrand].name}. Part of the Sunline Network.
+          </p>
+        </div>
+      </footer>
+    </ThemeProvider>
+  );
+}
+
+function ArticleCard({ article, feature }: { article: Article; feature?: boolean }) {
+  return (
+    <div className={`${feature ? 'md:col-span-2' : ''} overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm`}>
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-100">
           <img src={article.image || '/assets/placeholders/16x9.jpg'} alt="" className="h-full w-full object-cover" />
           <div className="absolute left-3 top-3">
-            <Badge>{article.category}</Badge>
+            <span className="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold bg-[var(--brand-accent)] text-[var(--brand-text)]">
+              {article.category}
+            </span>
           </div>
         </div>
         <div className="flex flex-col gap-3 p-4 md:p-6">
@@ -198,77 +206,8 @@ function ArticleCard({ article, feature = false }: { article: Article; feature?:
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
-
-function HomePage({ articles }: { articles: Article[] }) {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-6 lg:px-6 lg:py-10">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <ArticleCard article={articles[0]} feature />
-        <div className="grid grid-cols-1 gap-4">
-          <ArticleCard article={articles[1]} />
-          <ArticleCard article={articles[2]} />
-        </div>
-      </div>
-    </main>
-  );
-}
-
-function ArticlePage({ article }: { article: Article }) {
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-8 lg:px-0">
-      <h1 className="mb-3 font-serif text-4xl font-black leading-tight" style={{ fontFamily: 'var(--brand-heading)' }}>
-        {article.title}
-      </h1>
-      <p className="mb-6 text-lg text-gray-700">{article.summary}</p>
-    </main>
-  );
-}
-
-function Footer() {
-  const { tokens } = useTheme();
-  return (
-    <footer className="mt-10 border-t border-gray-100 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-gray-600 lg:px-6">
-        <p className="mt-6 text-xs text-gray-400">
-          © {new Date().getFullYear()} {tokens.name}. Part of the Sunline Network.
-        </p>
-      </div>
-    </footer>
-  );
-}
-
-/* ---------- WRAPPER ---------- */
-const mock: Article[] = Array.from({ length: 3 }).map((_, i) => ({
-  id: `${i + 1}`,
-  title: ['City Council Approves Affordable Housing Plan', 'Markets Rally as Inflation Cools', 'New Transit Line Cuts Commute Times'][i % 3],
-  summary: 'Concise dek that previews the article and sets reader expectations.',
-  category: ['Politics', 'Business', 'Local'][i % 3],
-  author: ['Ava Reed', 'Miles Chen', 'Nora Patel'][i % 3],
-  publishedAt: new Date(Date.now() - i * 36e5).toISOString(),
-  image: `https://picsum.photos/seed/sunline-${i}/960/540`
-}));
-
-type Props = {
-  brand?: string;
-  articles?: Article[];
-  children?: React.ReactNode;
-};
-
-const SunlineKit: React.FC<Props> = ({ brand = 'sunline', articles = mock, children }) => {
-  const resolvedBrand = safeBrand(brand);
-  const [view] = useState<'home' | 'article'>('home');
-
-  return (
-    <ThemeProvider brand={resolvedBrand}>
-      <Header />
-      {view === 'home' ? <HomePage articles={articles} /> : <ArticlePage article={articles[0]} />}
-      {children}
-      <Footer />
-    </ThemeProvider>
-  );
-};
 
 export { SunlineKit };

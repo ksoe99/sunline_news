@@ -11,6 +11,13 @@ const client = createClient({
   apiVersion: '2023-07-25',
 });
 
+interface Article {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishedAt: string;
+}
+
 const query = groq`
   *[_type == "article" && brand->slug.current == $slug] | order(publishedAt desc) {
     _id,
@@ -22,7 +29,7 @@ const query = groq`
 
 export default async function BrandPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const articles = await client.fetch(query, { slug });
+  const articles: Article[] = await client.fetch(query, { slug });
 
   if (!articles.length) {
     return (
@@ -36,7 +43,7 @@ export default async function BrandPage({ params }: { params: { slug: string } }
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 capitalize">{slug} Articles</h1>
       <ul className="space-y-4">
-        {articles.map((article: any) => (
+        {articles.map((article) => (
           <li key={article._id}>
             <Link
               href={`/${slug}/articles/${article.slug.current}`}
