@@ -1,4 +1,4 @@
-﻿export const metadata = {
+export const metadata = {
   title: "Sunline Test",
   description: "Fresh Next.js root",
 };

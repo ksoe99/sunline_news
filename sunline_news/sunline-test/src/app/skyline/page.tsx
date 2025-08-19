@@ -3,7 +3,7 @@
 import { notFound } from 'next/navigation';
 import { articles } from '@/lib/articles';
 import { getBrand } from '@/lib/branding';
-import { SunlineKit } from '@/components/SunlineKit';
+import SunlineKit from "@/components/SunlineKit";
 import Link from 'next/link';
 
 export default async function ArticleDetail({

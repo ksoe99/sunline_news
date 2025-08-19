@@ -1,13 +1,13 @@
-﻿// src/app/page.tsx
+// src/app/page.tsx
 import { getBrand } from '@/lib/branding';
-import { SunlineKit } from '@/components/SunlineKit';
+import SunlineKit from "@/components/SunlineKit";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const sp = await searchParams; // ⬅️ Await required
+  const sp = await searchParams; // ?? Await required
   const brandParam = Array.isArray(sp?.brand) ? sp.brand[0] : sp?.brand;
   const brand = await getBrand({ brand: brandParam });
 

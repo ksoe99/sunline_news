@@ -1,4 +1,4 @@
-import { SunlineKit } from '@/components/SunlineKit';
+import SunlineKit from "@/components/SunlineKit";
 import { getBrand } from '@/lib/branding';
 import { articles } from '@/lib/articles';
 import Link from 'next/link';
