@@ -1,6 +1,6 @@
 // src/app/page.tsx
-import { getBrand } from '@/lib/branding';
-import SunlineKit from "@/components/SunlineKit";
+import { getBrand } from "../../../lib/branding";
+import SunlineKit from "../../../components/SunlineKit";
 
 export default async function Home({
   searchParams,
