@@ -1,0 +1,27 @@
+{
+  "name": "sunline-test",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "dev:sunline": "cross-env HOST=www.sunlinenews.com next dev -p 3000",
+    "dev:atlas": "cross-env HOST=atlas.sunline.news next dev -p 3001",
+    "dev:sovereign": "cross-env HOST=sovereign.sunline.news next dev -p 3002",
+    "dev:skyline": "cross-env HOST=skyline.sunline.news next dev -p 3003",
+    "dev:echo": "cross-env HOST=echo.sunline.news next dev -p 3004"
+  },
+  "dependencies": {
+    "next": "15.4.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.5.4",
+    "@types/react": "18.3.5",
+    "@types/node": "22.5.1",
+    "cross-env": "7.0.3"
+  }
+}
