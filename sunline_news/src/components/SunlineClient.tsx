@@ -271,4 +271,4 @@ const SunlineKit: React.FC<Props> = ({ brand = 'sunline', articles = mock, child
   );
 };
 
-export default SunlineKit;
+export { SunlineKit };

@@ -1,16 +1,16 @@
-﻿// src/app/not-found.tsx
+﻿import Link from 'next/link';
+
 export default function NotFound() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 text-center">
-      <h1 className="text-4xl font-black" style={{ fontFamily: 'var(--brand-heading)', color: 'var(--brand-primary)' }}>
-        404
-      </h1>
-      <p className="mt-2 text-gray-600" style={{ fontFamily: 'var(--brand-body)' }}>
-        We couldn’t find that page.
+    <main className="flex min-h-screen flex-col items-center justify-center p-8">
+      <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+      <p className="text-lg text-gray-400 mb-6">
+        The page you are looking for does not exist.
       </p>
-      <a href="/" className="mt-6 inline-block text-[var(--brand-primary)] hover:underline">
-        Go home
-      </a>
+      <Link href="/" className="text-blue-500 hover:underline">
+        Go back home
+      </Link>
     </main>
-  )
+  );
 }
+
