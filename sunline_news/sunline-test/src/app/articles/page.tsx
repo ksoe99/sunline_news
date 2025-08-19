@@ -1,7 +1,7 @@
-﻿// src/app/articles/page.tsx
+// src/app/articles/page.tsx
 import { getBrand } from '@/lib/branding';
 import { articles } from '@/lib/articles';
-import { SunlineKit } from '@/components/SunlineKit';
+import SunlineKit from "@/components/SunlineKit";
 import Link from 'next/link';
 
 export default async function ArticlesPage({
