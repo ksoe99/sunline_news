@@ -1,48 +1,30 @@
-// src/app/sitemap.xml/route.ts
-import { NextResponse } from 'next/server';
-import { getBrandFromHost } from '@/lib/branding';
+﻿import { headers } from 'next/headers'
+import { getBrandFromHost, safeBrand, defaultBrand } from '@/lib/branding'
 
-export async function GET(req: Request) {
-  const host = req.headers.get('host') || '';
-  const brand = getBrandFromHost(host);
+export const dynamic = 'force-dynamic'
 
-  const baseUrlMap: Record<string, string> = {
-    sunline: 'https://www.sunlinenews.com',
-    skyline: 'https://www.theskylinenews.com',
-    atlas: 'https://www.atlaslivenews.com',
-    echo: 'https://www.echolivenews.com',
-    sovereign: 'https://www.sovereignwirenews.com',
-  };
-
-  const baseUrl = baseUrlMap[brand] || baseUrlMap.sunline;
-
-  // Placeholder — ideally fetch these from your CMS or page registry
-  const pages = [
-    '', // homepage
-    'about',
-    'contact',
-    'articles/sample-headline',
-  ];
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${pages
-      .map(
-        (page) => `
-      <url>
-        <loc>${baseUrl}/${page}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>${page === '' ? '1.0' : '0.8'}</priority>
-      </url>`
-      )
-      .join('')}
-  </urlset>`;
-
-  return new NextResponse(xml, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 's-maxage=3600, stale-while-revalidate=86400',
-    },
-  });
+function urlsForBrand(_brand: ReturnType<typeof safeBrand>) {
+  // TODO: replace with real per‑brand routes
+  return ['/', '/about', '/contact']
 }
+
+export async function GET() {
+  const hostHeader = (await headers()).get('host') ?? ''
+  const brand = safeBrand(getBrandFromHost(hostHeader) ?? defaultBrand)
+  const origin = `https://${hostHeader}`
+
+  const urls = urlsForBrand(brand)
+    .map(
+      (path) =>
+        `<url><loc>${origin}${path}</loc><changefreq>hourly</changefreq></url>`
+    )
+    .join('')
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`
+
+  return new Response(xml, {
+    status: 200,
+    headers: { 'Content-Type': 'application/xml; charset=utf-8' }
+  })
+}
+

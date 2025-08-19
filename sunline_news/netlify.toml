@@ -1,19 +1,22 @@
 [build]
   command = "npm run build"
   publish = ".next"
-  functions = "netlify/functions"
+  # Removed: functions = "netlify/functions"  ← this caused the warning
 
+# Optional: keep this; harmless even without custom functions
 [functions]
   node_bundler = "esbuild"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Baseline: no-cache for HTML-like routes handled by Next
 [[headers]]
   for = "/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Long-cache static assets (immutable)
 [[headers]]
   for = "/**/*.ico"
   [headers.values]
@@ -24,4 +27,43 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Extra polish (optional but recommended)
+[[headers]]
+  for = "/**/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/**/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.avif"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/**/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

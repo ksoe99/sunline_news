@@ -2,12 +2,20 @@
   "name": "sunline-news",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "dev:sunline": "cross-env HOST=www.sunlinenews.com next dev",
+    "dev:atlas": "cross-env HOST=www.atlaslivenews.com next dev",
+    "dev:sovereign": "cross-env HOST=www.sovereignwirenews.com next dev",
+    "dev:skyline": "cross-env HOST=www.theskylinenews.com next dev",
+    "dev:echo": "cross-env HOST=www.echolivenews.com next dev"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
@@ -24,13 +32,13 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@netlify/next": "^1.4.9",
-    "@netlify/plugin-nextjs": "^5.11.6",
+    "@netlify/plugin-nextjs": "^5.12.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "cross-env": "^7.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.4.1",
     "tailwindcss": "^4",
