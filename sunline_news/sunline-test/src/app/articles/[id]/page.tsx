@@ -1,6 +1,6 @@
 import { getBrand } from "../../../lib/branding";
-import SunlineKit from "@/components/SunlineKit";
-import { articles } from "@/lib/articles";
+import SunlineKit from "../../../components/SunlineKit";
+import { articles } from "../../../lib/articles";
 
 export default async function ArticleDetail({
   params,
