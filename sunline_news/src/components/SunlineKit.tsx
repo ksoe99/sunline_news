@@ -1,11 +1,13 @@
 import dynamic from "next/dynamic";
 import { safeBrand, themes } from "./SunlineClient";
+import('@/components/SunlineKit')
 
-const SunlineClient = dynamic(() => import("./SunlineClient"), { ssr: false });
+const SunlineKit = ({ brand }: { brand: any }) => {
+  return (
+    <div style={{ backgroundColor: brand.colors.background, color: brand.colors.foreground }}>
+      <h1>{brand.name}</h1>
+    </div>
+  );
+};
 
-export function SunlineKit({ brand, children }: { brand?: string; children?: React.ReactNode }) {
-  return <SunlineClient brand={brand}>{children}</SunlineClient>;
-}
-
-export { themes, safeBrand };
-
+export default SunlineKit;
