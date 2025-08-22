@@ -6,9 +6,9 @@ import Link from 'next/link';
 export default async function SunlineHome({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const sp = await searchParams;
+  const sp = searchParams;
   const brandParam = Array.isArray(sp?.brand) ? sp.brand[0] : sp?.brand;
   const brand = await getBrand({ brand: brandParam });
   const featured = articles.find(a => a.brands.includes(brand.key));
@@ -75,3 +75,4 @@ export default async function SunlineHome({
     </SunlineKit>
   );
 }
+
