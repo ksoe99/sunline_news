@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic';
 
-const SunlineDemo = dynamic(
-  () => import('@/components/SunlineKit').then((mod) => mod.SunlineKit),
-  { ssr: false }
-);
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), {
+  ssr: false,
+});
 
 export default function SunlineDemoWrapper() {
   return <SunlineDemo />;
 }
+
