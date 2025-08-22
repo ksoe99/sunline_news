@@ -1,13 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import type { ComponentType } from 'react';
-import type { SunlineKitProps } from '@/components/SunlineKit';
 
-const SunlineKit = dynamic<ComponentType<SunlineKitProps>>(
-  () => import('@/components/SunlineKit').then(mod => mod.default),
-  { ssr: false }
-);
+const SunlineKit = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default as React.ComponentType<any>), {
+  ssr: false,
+});
 
 const previewBrand = {
   key: 'sunline',
@@ -29,4 +26,3 @@ export default function Page() {
     </SunlineKit>
   );
 }
-
