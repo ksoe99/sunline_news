@@ -3,29 +3,12 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-type BrandProps = {
-  brand: {
-    key: string;
-    name: string;
-    logo: string;
-    colors: {
-      primary: string;
-      background: string;
-      foreground: string;
-      card: string;
-      border: string;
-    };
-  };
-  children?: React.ReactNode;
-};
-
-const SunlineDemo = dynamic(() =>
-  import('@/components/SunlineKit').then(mod => mod.SunlineKit as React.ComponentType<BrandProps>),
-  { ssr: false }
-);
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit').then(mod => mod.SunlineKit), {
+  ssr: false,
+});
 
 export default function Page() {
-  const dummyBrand = {
+  const brand = {
     key: 'demo',
     name: 'Sunline Demo',
     logo: '',
@@ -38,9 +21,5 @@ export default function Page() {
     },
   };
 
-  return (
-    <SunlineDemo brand={dummyBrand}>
-      <p>Preview Content</p>
-    </SunlineDemo>
-  );
+  return <SunlineDemo brand={brand} />;
 }
