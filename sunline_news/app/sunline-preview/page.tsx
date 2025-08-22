@@ -1,9 +1,13 @@
-'use client';
-
 import dynamic from 'next/dynamic';
+import React from 'react';
 
-const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), { ssr: false });
+// Dynamically import SunlineKit with named export support
+const SunlineDemo = dynamic(
+  () => import('@/components/SunlineKit').then((mod) => mod.SunlineKit),
+  { ssr: false }
+);
 
 export default function Page() {
   return <SunlineDemo />;
 }
+

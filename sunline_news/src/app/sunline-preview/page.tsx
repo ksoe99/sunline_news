@@ -3,9 +3,8 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const SunlineDemo = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default), {
-  ssr: false,
-});
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), { ssr: false });
+
 
 export default function Page() {
   const brand = {
