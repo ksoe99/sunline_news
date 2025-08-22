@@ -1,28 +1,25 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import React from 'react';
 
-const SunlineKit = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default as React.ComponentType<unknown>), {
-  ssr: false,
-});
-
-const previewBrand = {
-  key: 'sunline',
-  name: 'Sunline News',
-  logo: '/logos/sunline.png',
-  colors: {
-    primary: '#d0021b',
-    background: '#fff0f0',
-    foreground: '#111',
-    card: '#ffffff',
-    border: '#ddd',
-  },
-};
+const SunlineDemo = dynamic(() =>
+  import('@/components/SunlineKit').then((mod) => mod.SunlineKit)
+);
 
 export default function Page() {
-  return (
-    <SunlineKit brand={previewBrand}>
-      Previewing SunlineKit
-    </SunlineKit>
-  );
+  const dummyBrand = {
+    key: 'demo',
+    name: 'Sunline Demo',
+    logo: '',
+    colors: {
+      primary: '#1E90FF',
+      background: '#ffffff',
+      foreground: '#000000',
+      card: '#f9f9f9',
+      border: '#e0e0e0',
+    },
+  };
+
+  return <SunlineDemo brand={dummyBrand} children={<p>Preview Content</p>} />;
 }
