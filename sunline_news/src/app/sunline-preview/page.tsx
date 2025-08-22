@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-const SunlineKit = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default as React.ComponentType<any>), {
+const SunlineKit = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default as React.ComponentType<unknown>), {
   ssr: false,
 });
 
