@@ -3,11 +3,13 @@
 import dynamic from 'next/dynamic';
 import { Brand } from '@/lib/branding';
 
+// ✅ Correct way to dynamically import a named export
 const SunlineDemo = dynamic(
-  () => import('@/components/SunlineKit').then((mod) => mod.SunlineKit),
+  () => import('@/components/SunlineKit').then(mod => mod.SunlineKit),
   { ssr: false }
 );
 
+// ✅ Required static brand for preview
 const previewBrand: Brand = {
   key: 'sunline',
   name: 'Sunline News',
