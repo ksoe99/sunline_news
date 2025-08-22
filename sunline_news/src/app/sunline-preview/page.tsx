@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 const SunlineDemo = dynamic(() =>
-  import('@/components/SunlineKit').then((mod) => mod.SunlineKit)
+  import('@/components/SunlineKit').then(mod => mod.SunlineKit as React.ComponentType<{ brand: any; children?: React.ReactNode }>),
+  { ssr: false }
 );
 
 export default function Page() {
