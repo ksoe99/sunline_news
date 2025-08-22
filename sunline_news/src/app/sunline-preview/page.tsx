@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const SunlineDemo = dynamic(() => import('@/components/SunlineKit').then(mod => mod.SunlineKit), {
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit').then(mod => mod.default), {
   ssr: false,
 });
 
