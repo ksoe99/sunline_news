@@ -21,5 +21,9 @@ export default function Page() {
     },
   };
 
-  return <SunlineDemo brand={dummyBrand} children={<p>Preview Content</p>} />;
+  return (
+    <SunlineDemo brand={dummyBrand}>
+      <p>Preview Content</p>
+    </SunlineDemo>
+  );
 }
