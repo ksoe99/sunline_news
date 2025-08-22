@@ -1,13 +1,15 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Brand } from '@/lib/branding';
+import type { ComponentType } from 'react';
+import type { SunlineKitProps } from '@/components/SunlineKit';
 
-const SunlineKit = dynamic(() =>
-  import('@/components/SunlineKit').then(mod => mod.default), { ssr: false }
+const SunlineKit = dynamic<ComponentType<SunlineKitProps>>(
+  () => import('@/components/SunlineKit').then(mod => mod.default),
+  { ssr: false }
 );
 
-const previewBrand: Brand = {
+const previewBrand = {
   key: 'sunline',
   name: 'Sunline News',
   logo: '/logos/sunline.png',
