@@ -3,8 +3,24 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
+type BrandProps = {
+  brand: {
+    key: string;
+    name: string;
+    logo: string;
+    colors: {
+      primary: string;
+      background: string;
+      foreground: string;
+      card: string;
+      border: string;
+    };
+  };
+  children?: React.ReactNode;
+};
+
 const SunlineDemo = dynamic(() =>
-  import('@/components/SunlineKit').then(mod => mod.SunlineKit as React.ComponentType<{ brand: any; children?: React.ReactNode }>),
+  import('@/components/SunlineKit').then(mod => mod.SunlineKit as React.ComponentType<BrandProps>),
   { ssr: false }
 );
 
