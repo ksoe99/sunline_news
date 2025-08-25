@@ -1,12 +1,11 @@
 'use client';
-import { Brand } from "@/lib/branding";
+
 import dynamic from 'next/dynamic';
+import { Brand } from '@/lib/branding';
 
-const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), {
-  ssr: false,
-});
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), { ssr: false });
 
-const mockBrand: Brand = {
+const previewBrand: Brand = {
   key: 'sunline',
   name: 'Sunline News',
   logo: '/logos/sunline.png',
@@ -19,7 +18,6 @@ const mockBrand: Brand = {
   },
 };
 
-
 export default function SunlineDemoWrapper() {
-  return <SunlineDemo brand={mockBrand} />;
+  return <SunlineDemo brand={previewBrand}>Previewing SunlineKit</SunlineDemo>;
 }
