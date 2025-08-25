@@ -1,15 +1,6 @@
-import dynamic from "next/dynamic";
-import { safeBrand, themes } from "./SunlineClient";
+import { Brand } from "@/lib/branding";
 
-type Brand = {
-  name: string;
-  colors: {
-    background: string;
-    foreground: string;
-  };
-};
-
-const SunlineKit = ({ brand, children }: { brand: any; children?: React.ReactNode }) => {
+const SunlineKit = ({ brand, children }: { brand: Brand; children?: React.ReactNode }) => {
   return (
     <div style={{ backgroundColor: brand.colors.background, color: brand.colors.foreground }}>
       <h1>{brand.name}</h1>
@@ -18,5 +9,5 @@ const SunlineKit = ({ brand, children }: { brand: any; children?: React.ReactNod
   );
 };
 
-
 export default SunlineKit;
+
