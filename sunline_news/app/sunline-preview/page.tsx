@@ -1,5 +1,5 @@
 import React from 'react';
-import SunlineDemoWrapper from './SunlineDemoWrapper';
+import SunlineDemoWrapper from '@/app/sunline-preview/SunlineDemoWrapper';
 
 export default function Page() {
   return <SunlineDemoWrapper />;
