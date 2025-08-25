@@ -39,11 +39,11 @@ export const defaultBrand: BrandKey = "sunline";
 export type Brand = {
   name: string;
   logo?: string;
-  key?: string;
   colors: {
-    primary?: string;
     background: string;
     foreground: string;
+    primary?: string;
+    accent?: string;
     card?: string;
     border?: string;
   };
