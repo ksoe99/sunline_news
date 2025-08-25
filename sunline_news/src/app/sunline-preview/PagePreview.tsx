@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { Brand } from '@/lib/branding';
 
 const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), { ssr: false });
-);
 
 const previewBrand: Brand = {
   key: 'sunline',
@@ -22,3 +21,4 @@ const previewBrand: Brand = {
 export default function PagePreview() {
   return <SunlineDemo brand={previewBrand}>Previewing SunlineKit</SunlineDemo>;
 }
+
