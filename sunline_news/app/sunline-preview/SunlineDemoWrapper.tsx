@@ -6,11 +6,13 @@ const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), {
   ssr: false,
 });
 
-const mockBrand = {
+const mockBrand: Brand = {
+  key: 'sunline',
   name: 'Sunline News',
+  logo: '/logos/sunline.png',
   colors: {
-    background: '#ffffff',
-    foreground: '#000000',
+    background: '#fff0f0',
+    foreground: '#111',
   },
 };
 
