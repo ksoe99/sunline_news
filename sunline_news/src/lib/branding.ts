@@ -38,9 +38,14 @@ export const defaultBrand: BrandKey = "sunline";
 // Optional simplified Brand type for components that only use minimal fields
 export type Brand = {
   name: string;
+  logo?: string;
+  key?: string;
   colors: {
+    primary?: string;
     background: string;
     foreground: string;
+    card?: string;
+    border?: string;
   };
 };
 
