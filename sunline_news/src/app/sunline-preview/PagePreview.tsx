@@ -3,9 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Brand } from '@/lib/branding';
 
-const SunlineDemo = dynamic(
-  () => import('@/components/SunlineKit').then(mod => mod.SunlineKit),
-  { ssr: false }
+const SunlineDemo = dynamic(() => import('@/components/SunlineKit'), { ssr: false });
 );
 
 const previewBrand: Brand = {
