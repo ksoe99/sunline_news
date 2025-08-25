@@ -9,12 +9,14 @@ type Brand = {
   };
 };
 
-const SunlineKit = ({ brand }: { brand: Brand }) => {
+const SunlineKit = ({ brand, children }: { brand: any; children?: React.ReactNode }) => {
   return (
     <div style={{ backgroundColor: brand.colors.background, color: brand.colors.foreground }}>
       <h1>{brand.name}</h1>
+      {children}
     </div>
   );
 };
+
 
 export default SunlineKit;
