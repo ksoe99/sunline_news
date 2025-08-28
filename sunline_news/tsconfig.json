@@ -21,12 +21,13 @@
     "baseUrl": "src",
    "paths": {
   "@/*": ["*"]
-}
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+},
+"plugins": [
+  {
+    "name": "next"
+  }
+]
+
     "strictNullChecks": true
   },
   "include": [
