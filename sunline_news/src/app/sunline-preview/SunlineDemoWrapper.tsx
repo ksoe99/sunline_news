@@ -2,7 +2,7 @@
 
 import { SunlinePreviewClient } from "@/sunline";
 import { brand } from "@/sunline/brand";
-import { PagePreview } from "./PagePreview";
+import PagePreview from "./PagePreview";
 
 export default function SunlineDemoWrapper() {
   return (
