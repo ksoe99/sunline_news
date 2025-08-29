@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 
-interface Props {
-  children: ReactNode;
+interface SunlinePreviewClientProps {
   brand: {
     key: string;
     colors: {
@@ -9,12 +8,13 @@ interface Props {
       accent: string;
     };
   };
+  children: ReactNode;
 }
 
-export function SunlinePreviewClient({ children, brand }: Props) {
+export function SunlinePreviewClient({ brand, children }: SunlinePreviewClientProps) {
   return (
-    <div className="sunline-preview">
-      {/* You can add brand styling logic here if needed */}
+    <div>
+      {/* You can use brand properties if needed */}
       {children}
     </div>
   );
