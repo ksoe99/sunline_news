@@ -13,11 +13,6 @@ interface SunlinePreviewClientProps {
   children: ReactNode;
 }
 
-export default function SunlinePreviewClient({
-  brand,
-  children,
-}: SunlinePreviewClientProps) {
+export default function SunlinePreviewClient({ brand, children }: SunlinePreviewClientProps) {
   return <div>{children}</div>;
 }
-
-
