@@ -1,21 +1,23 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-type Brand = {
-  key: string;
-  colors: {
-    primary: string;
-    accent: string;
+interface Props {
+  children: ReactNode;
+  brand: {
+    key: string;
+    colors: {
+      primary: string;
+      accent: string;
+    };
   };
-};
-
-interface SunlinePreviewClientProps {
-  children: React.ReactNode;
-  brand: Brand;
 }
 
-export const SunlinePreviewClient: React.FC<SunlinePreviewClientProps> = ({ children, brand }) => {
-  // Use brand as needed
-  return <div>{children}</div>;
-};
+export function SunlinePreviewClient({ children, brand }: Props) {
+  return (
+    <div className="sunline-preview">
+      {/* You can add brand styling logic here if needed */}
+      {children}
+    </div>
+  );
+}
 
 
