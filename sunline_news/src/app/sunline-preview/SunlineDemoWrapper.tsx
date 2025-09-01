@@ -1,6 +1,6 @@
 "use client";
 
-import { SunlinePreviewClient } from "@/sunline";
+import SunlinePreviewClient from "@/app/sunline-preview/SunlinePreviewClient";
 import { brand } from "@/sunline/brand";
 import PagePreview from "./PagePreview";
 
