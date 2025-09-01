@@ -25,16 +25,38 @@ export function SunlineKit({ brand, children }: Props) {
   }, [brand]);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)', color: 'var(--color-foreground)' }}>
-      <header className="p-4 border-b" style={{ borderColor: 'var(--color-border)' }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: 'var(--color-background)',
+        color: 'var(--color-foreground)',
+      }}
+    >
+      <header
+        className="p-4 border-b"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Image src={brand.logo || ''} alt={brand.name} width={40} height={40} />
-            <h1 className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>{brand.name}</h1>
+            <Image
+              src={brand.logo || ''}
+              alt={brand.name}
+              width={40}
+              height={40}
+            />
+            <h1
+              className="text-2xl font-bold"
+              style={{ color: 'var(--color-primary)' }}
+            >
+              {brand.name}
+            </h1>
           </div>
           <div className="flex items-center gap-4">
             <Weather />
-            <Link href={`/live?brand=${brand.key}`} className="text-sm underline">
+            <Link
+              href={`/live?brand=${brand.key}`}
+              className="text-sm underline"
+            >
               Watch Live
             </Link>
           </div>
@@ -46,7 +68,10 @@ export function SunlineKit({ brand, children }: Props) {
           <LocalNews />
         </div>
       </main>
-      <footer className="p-4 text-sm text-center border-t" style={{ borderColor: 'var(--color-border)' }}>
+      <footer
+        className="p-4 text-sm text-center border-t"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         &copy; {new Date().getFullYear()} {brand.name}. All rights reserved.
       </footer>
     </div>
