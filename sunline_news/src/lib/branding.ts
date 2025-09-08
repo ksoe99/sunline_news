@@ -88,3 +88,23 @@ export function resolveBrandFromHostOrEnv(host: string, searchBrand?: string | n
 
   return defaultBrand;
 }
+
+// ✅ Add this to resolve Netlify build error
+export async function getBrand({ brand }: { brand?: string }): Promise<Brand> {
+  const brandKey = safeBrand(brand);
+  const theme = themes[brandKey];
+
+  return {
+    key: brandKey,
+    name: theme.name,
+    logo: `/logos/${brandKey}.svg`, // Adjust path if needed
+    colors: {
+      primary: theme.colors.primary,
+      background: "#ffffff", // Default or derived
+      foreground: "#000000", // Default or derived
+      card: "#f0f0f0",       // Default or derived
+      border: "#cccccc"      // Default or derived
+    }
+  };
+}
+
