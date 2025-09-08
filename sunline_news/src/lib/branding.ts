@@ -35,7 +35,7 @@ export type BrandKey = keyof typeof themes;
 export type ThemeTokens = (typeof themes)[BrandKey];
 export const defaultBrand: BrandKey = "sunline";
 
-// Optional simplified Brand type for components that only use minimal fields
+// Simplified Brand type used by components that consume it
 export type Brand = {
   key: string;
   name: string;
@@ -51,30 +51,29 @@ export type Brand = {
 
 export function safeBrand(value?: string | null): BrandKey {
   const v = (value ?? "").toLowerCase();
-  return (Object.keys(themes) as BrandKey[]).includes(v as BrandKey) ? (v as BrandKey) : defaultBrand;
+  return (Object.keys(themes) as BrandKey[]).includes(v as BrandKey)
+    ? (v as BrandKey)
+    : defaultBrand;
 }
 
 export function getBrandFromHost(host: string): BrandKey | null {
   const h = (host || "").toLowerCase();
   for (const key of Object.keys(themes) as BrandKey[]) {
-    if ((themes[key].hostnames as readonly string[]).includes(h)) return key;
+    if (themes[key].hostnames.includes(h)) return key;
   }
   if (h.startsWith("www.")) {
     const noWww = h.slice(4);
     for (const key of Object.keys(themes) as BrandKey[]) {
-      if ((themes[key].hostnames as readonly string[]).includes(noWww)) return key;
+      if (themes[key].hostnames.includes(noWww)) return key;
     }
   }
   return null;
 }
 
-/**
- * Resolve brand for both prod and dev:
- * - Prod: from Host header
- * - Dev: if Host is localhost, try process.env.HOST,
- *        else allow a `brand` search param (handled in server component)
- */
-export function resolveBrandFromHostOrEnv(host: string, searchBrand?: string | null): BrandKey {
+export function resolveBrandFromHostOrEnv(
+  host: string,
+  searchBrand?: string | null
+): BrandKey {
   const hostBrand = getBrandFromHost(host);
   if (hostBrand) return hostBrand;
 
@@ -89,22 +88,27 @@ export function resolveBrandFromHostOrEnv(host: string, searchBrand?: string | n
   return defaultBrand;
 }
 
-// ✅ Add this to resolve Netlify build error
-export async function getBrand({ brand }: { brand?: string }): Promise<Brand> {
+// New helper function to resolve a full Brand object
+export async function getBrand({
+  brand,
+}: {
+  brand?: string;
+}): Promise<Brand> {
   const brandKey = safeBrand(brand);
   const theme = themes[brandKey];
 
   return {
     key: brandKey,
     name: theme.name,
-    logo: `/logos/${brandKey}.svg`, // Adjust path if needed
+    logo: `/logos/${brandKey}.svg`, // Adjust as needed
     colors: {
       primary: theme.colors.primary,
-      background: "#ffffff", // Default or derived
-      foreground: "#000000", // Default or derived
-      card: "#f0f0f0",       // Default or derived
-      border: "#cccccc"      // Default or derived
+      background: "#ffffff", // Customize if needed
+      foreground: "#000000", // Customize if needed
+      card: "#f0f0f0",        // Customize if needed
+      border: "#cccccc"       // Customize if needed
     }
   };
 }
+
 
