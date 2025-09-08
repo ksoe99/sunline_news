@@ -1,4 +1,4 @@
-import { getBrand } from "../../lib/branding";
+import { getBrand } from "@/lib/branding";
 import { SunlineKit } from "../../../components/SunlineKit"; // ✅
 import { articles } from "../../../lib/articles";
 
